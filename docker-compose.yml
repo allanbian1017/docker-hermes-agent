@@ -1,0 +1,21 @@
+services:
+  hermes:
+    image: nousresearch/hermes-agent
+    container_name: hermes
+    restart: unless-stopped
+    ports:
+      - "8642:8642"
+      - "8646:8646"
+      - "9119:9119"
+    volumes:
+      - ~/.hermes:/opt/data
+    tmpfs:
+      - /run:exec,size=256m
+    environment:
+      - API_SERVER_ENABLED=true
+      - API_SERVER_HOST=0.0.0.0
+      - API_SERVER_KEY=<paste-your-generated-key-here>
+      - API_SERVER_CORS_ORIGINS=*
+      - HERMES_DASHBOARD=1
+      - HERMES_DASHBOARD_INSECURE=1
+    command: gateway run
